@@ -1,0 +1,427 @@
+/* Download Section Styles */
+
+.download-section {
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.download-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(62, 104, 240, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Download Header */
+.download-header {
+  text-align: center;
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.download-header .overline {
+  font-size: 13px;
+  font-weight: 500;
+  color: #B5B8C1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+  display: block;
+}
+
+.download-headline {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: #F5F5F7;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+
+.download-subheadline {
+  font-size: 18px;
+  font-weight: 400;
+  color: #B5B8C1;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Pricing Grid */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 40px;
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pricing-card-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+/* Pricing Card Base */
+.pricing-card {
+  padding: 48px 40px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.005) 100%);
+  transition: all 300ms ease-out;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;
+}
+
+.pricing-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(62, 104, 240, 0.1) 0%, transparent 80%);
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+  pointer-events: none;
+}
+
+/* Free Card Hover */
+.pricing-card-free:hover {
+  border-color: rgba(62, 104, 240, 0.3);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(62, 104, 240, 0.15);
+}
+
+.pricing-card-free:hover::before {
+  opacity: 1;
+}
+
+/* Pro Card (Disabled) */
+.pricing-card-pro {
+  opacity: 0.6;
+}
+
+.pricing-card-pro:hover {
+  transform: none;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.tier-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #F5F5F7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tier-badge {
+  font-size: 11px;
+  font-weight: 500;
+  color: #3B68F0;
+  background: rgba(62, 104, 240, 0.15);
+  padding: 4px 12px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Card Content */
+.card-title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #F5F5F7;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.card-description {
+  font-size: 15px;
+  color: #B5B8C1;
+  line-height: 1.6;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Features List */
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+  flex-grow: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #B5B8C1;
+  line-height: 1.6;
+}
+
+.feature-item:last-child {
+  margin-bottom: 0;
+}
+
+.feature-check {
+  color: #3B68F0;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.feature-text {
+  flex: 1;
+}
+
+.pricing-card-pro .feature-item {
+  opacity: 0.6;
+}
+
+/* Download Button */
+.download-button {
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #007AFF 0%, #0056CC 100%);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 300ms ease-out;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 16px;
+}
+
+.download-button:hover:not(.disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 122, 255, 0.3);
+}
+
+.download-button.disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: #B5B8C1;
+  cursor: default;
+  opacity: 0.6;
+}
+
+/* System Requirements */
+.system-requirements {
+  font-size: 12px;
+  color: #B5B8C1;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+/* Download Footer */
+.download-footer {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-text {
+  font-size: 15px;
+  color: #B5B8C1;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Animated Reveal */
+.animated-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  animation: fadeUp 800ms ease-out forwards;
+}
+
+.animated-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pricing-card-wrapper:nth-child(1) {
+  animation-delay: 100ms;
+}
+
+.pricing-card-wrapper:nth-child(2) {
+  animation-delay: 200ms;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .download-section {
+    padding: 80px 0;
+  }
+
+  .download-header {
+    margin-bottom: 60px;
+  }
+
+  .download-headline {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+  }
+
+  .pricing-grid {
+    gap: 32px;
+    margin-bottom: 60px;
+  }
+
+  .pricing-card {
+    padding: 40px 32px;
+    min-height: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .download-section {
+    padding: 60px 0;
+  }
+
+  .download-section::before {
+    width: 400px;
+    height: 400px;
+  }
+
+  .download-header {
+    margin-bottom: 40px;
+  }
+
+  .download-header .overline {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  .download-headline {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .download-subheadline {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+    max-width: 100%;
+  }
+
+  .pricing-card-wrapper {
+    width: 100%;
+  }
+
+  .pricing-card {
+    padding: 28px 20px;
+    min-height: auto;
+  }
+
+  .card-header {
+    margin-bottom: 16px;
+  }
+
+  .tier-label {
+    font-size: 12px;
+  }
+
+  .tier-badge {
+    font-size: 10px;
+    padding: 3px 10px;
+  }
+
+  .card-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .card-description {
+    font-size: 13px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .features-list {
+    margin-bottom: 24px;
+  }
+
+  .feature-item {
+    font-size: 12px;
+    margin-bottom: 10px;
+    gap: 10px;
+  }
+
+  .feature-check {
+    margin-top: 1px;
+  }
+
+  .download-button {
+    padding: 12px 16px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+  }
+
+  .system-requirements {
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  .download-footer {
+    margin-top: 20px;
+  }
+
+  .footer-text {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+}

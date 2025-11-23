@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Analytics } from '@vercel/analytics/react';
 import './index.css';
+import About from './About';
+import DownloadSection from './DownloadSection';
 
 interface ButtonProps {
   label: string;
@@ -19,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({ label, onClick, variant = 'primary', cl
   );
 };
 
-const Header: React.FC = () => {
+const Header: React.FC<{ currentPage: string; onNavigate: (page: string) => void }> = ({ currentPage, onNavigate }) => {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -31,15 +33,21 @@ const Header: React.FC = () => {
     <header className="header">
       <div className="main-wrapper">
         <div className="header-content">
-          <a href="#" className="wordmark">Flux</a>
+          <a href="#" className="wordmark" onClick={(e) => { e.preventDefault(); onNavigate('home'); }}>Flux</a>
           <nav className="nav">
-            <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
+            <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); onNavigate('home'); }}>
               Home
+            </a>
+            <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); onNavigate('about'); }}>
+              About
+            </a>
+            <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('download'); }}>
+              Download
             </a>
             <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('instructions'); }}>
               Instructions
             </a>
-            <button className="download-btn-small" onClick={downloadFlux}>
+            <button className="download-btn-small" onClick={() => scrollToSection('download')}>
               Download
             </button>
           </nav>
@@ -78,7 +86,7 @@ const Hero: React.FC = () => {
           <Button 
             label="Download for macOS" 
             variant="primary" 
-            onClick={downloadFlux}
+            onClick={() => scrollToSection('download')}
           />
           <Button 
             label="View Instructions" 
@@ -266,7 +274,12 @@ const InstructionsSection: React.FC = () => {
           <Button 
             label="Download for macOS" 
             variant="primary" 
-            onClick={downloadFlux}
+            onClick={() => {
+              const el = document.getElementById('download');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }}
           />
         </div>
       </div>
@@ -288,14 +301,29 @@ const Footer: React.FC = () => {
 };
 
 const App: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState<'home' | 'about'>('home');
+
+  const handleNavigate = (page: string) => {
+    if (page === 'home' || page === 'about') {
+      setCurrentPage(page);
+    }
+  };
+
   return (
     <div className="App">
-      <Header />
-      <Hero />
-      <FeatureStrip />
-      <ProductDetailsSection />
-      <TimelineSection />
-      <InstructionsSection />
+      <Header currentPage={currentPage} onNavigate={handleNavigate} />
+      {currentPage === 'home' ? (
+        <>
+          <Hero />
+          <FeatureStrip />
+          <ProductDetailsSection />
+          <TimelineSection />
+          <DownloadSection />
+          <InstructionsSection />
+        </>
+      ) : (
+        <About onNavigate={handleNavigate} />
+      )}
       <Footer />
       <Analytics />
     </div>

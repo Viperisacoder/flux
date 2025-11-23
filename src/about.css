@@ -1,0 +1,733 @@
+/* About Page Styles */
+
+.about-page {
+  width: 100%;
+}
+
+/* Animated Reveal */
+.animated-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  animation: fadeUp 800ms ease-out forwards;
+}
+
+.animated-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section Base */
+.about-section {
+  padding: 120px 0;
+  position: relative;
+}
+
+.about-section:nth-child(even) {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* Hero Statement Section */
+.hero-statement {
+  padding: 160px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-statement::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(62, 104, 240, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.headline-block {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.overline {
+  font-size: 13px;
+  font-weight: 500;
+  color: #B5B8C1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+  display: block;
+}
+
+.main-headline {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  color: #F5F5F7;
+  letter-spacing: -0.5px;
+}
+
+.subheadline {
+  font-size: 20px;
+  font-weight: 400;
+  color: #B5B8C1;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.real-people-section .headline-block .subheadline {
+  margin-top: 40px;
+}
+
+/* Origin Story Section */
+.origin-story {
+  padding: 140px 0;
+}
+
+.origin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+
+.origin-text {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: 400;
+  color: #F5F5F7;
+  margin-bottom: 8px;
+}
+
+.origin-paragraph {
+  font-size: 16px;
+  font-weight: 400;
+  color: #B5B8C1;
+  line-height: 1.8;
+}
+
+.origin-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.origin-image {
+  max-width: 100%;
+  width: 320px;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  animation: float 8s ease-in-out infinite;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Placeholder Frame */
+.placeholder-frame {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.005) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: float 8s ease-in-out infinite;
+}
+
+.placeholder-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(62, 104, 240, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.placeholder-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: #B5B8C1;
+}
+
+.placeholder-icon {
+  width: 48px;
+  height: 48px;
+  opacity: 0.4;
+}
+
+.placeholder-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #B5B8C1;
+  letter-spacing: 0.5px;
+}
+
+/* Pillars Section */
+.pillars-section {
+  padding: 140px 0;
+  text-align: center;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  margin-top: 80px;
+}
+
+.pillar-card {
+  padding: 40px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.01);
+  transition: all 300ms ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.pillar-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(62, 104, 240, 0.1) 0%, transparent 80%);
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+  pointer-events: none;
+}
+
+.pillar-card:hover {
+  border-color: rgba(62, 104, 240, 0.3);
+  background: rgba(255, 255, 255, 0.02);
+  transform: translateY(-4px);
+}
+
+.pillar-card:hover::before {
+  opacity: 1;
+}
+
+.pillar-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 24px;
+  color: #3B68F0;
+  opacity: 0.8;
+  transition: all 300ms ease-out;
+}
+
+.pillar-card:hover .pillar-icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.pillar-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #F5F5F7;
+  margin-bottom: 12px;
+}
+
+.pillar-description {
+  font-size: 14px;
+  color: #B5B8C1;
+  line-height: 1.7;
+}
+
+/* Real People Section */
+.real-people-section {
+  padding: 140px 0;
+  text-align: center;
+}
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  margin-bottom: 100px;
+}
+
+.people-card {
+  padding: 32px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.01);
+  transition: all 300ms ease-out;
+  text-align: left;
+}
+
+.people-card:hover {
+  border-color: rgba(62, 104, 240, 0.3);
+  background: rgba(255, 255, 255, 0.02);
+  transform: translateY(-4px);
+}
+
+.people-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #F5F5F7;
+  margin-bottom: 12px;
+}
+
+.people-description {
+  font-size: 14px;
+  color: #B5B8C1;
+  line-height: 1.7;
+}
+
+.people-visual {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.people-image {
+  max-width: 100%;
+  width: 920px;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  animation: float 8s ease-in-out infinite;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Philosophy Section */
+.philosophy-section {
+  padding: 140px 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.philosophy-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.philosophy-headline {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 300;
+  color: #F5F5F7;
+  margin-bottom: 80px;
+  letter-spacing: -0.5px;
+}
+
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 48px;
+  text-align: left;
+}
+
+.philosophy-point {
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.01);
+  transition: all 300ms ease-out;
+}
+
+.philosophy-point:hover {
+  border-color: rgba(62, 104, 240, 0.3);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.philosophy-point h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #F5F5F7;
+  margin-bottom: 12px;
+}
+
+.philosophy-point p {
+  font-size: 14px;
+  color: #B5B8C1;
+  line-height: 1.7;
+}
+
+/* Guarantee Section */
+.guarantee-section {
+  padding: 140px 0;
+}
+
+.guarantee-content {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.guarantee-headline {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 300;
+  color: #F5F5F7;
+  margin-bottom: 48px;
+  letter-spacing: -0.5px;
+}
+
+.guarantee-badge {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 48px;
+  padding: 16px;
+  border: 1px solid rgba(62, 104, 240, 0.3);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(62, 104, 240, 0.1) 0%, transparent 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: float 6s ease-in-out infinite;
+}
+
+.badge-icon {
+  width: 48px;
+  height: 48px;
+  color: #3B68F0;
+}
+
+.guarantee-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.guarantee-list li {
+  font-size: 16px;
+  color: #B5B8C1;
+  line-height: 1.8;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.guarantee-list li:last-child {
+  border-bottom: none;
+}
+
+.guarantee-list li::before {
+  content: '✓ ';
+  color: #3B68F0;
+  font-weight: 600;
+  margin-right: 12px;
+}
+
+/* Final CTA Section */
+.final-cta {
+  padding: 160px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.final-cta::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(62, 104, 240, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 48px;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+}
+
+/* Button Styles (inherited from main, but with specific overrides) */
+.btn-primary,
+.btn-secondary {
+  transition: all 300ms ease-out;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(62, 104, 240, 0.3);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .about-section {
+    padding: 80px 0;
+  }
+
+  .hero-statement {
+    padding: 80px 0;
+  }
+
+  .origin-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .origin-image {
+    width: 280px;
+  }
+
+  .pillars-grid {
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .philosophy-grid {
+    gap: 32px;
+  }
+
+  .main-headline {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+  }
+
+  .philosophy-headline,
+  .guarantee-headline {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+  }
+
+  .people-image {
+    width: 600px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-buttons .btn-primary,
+  .cta-buttons .btn-secondary {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-section {
+    padding: 60px 0;
+  }
+
+  .hero-statement {
+    padding: 60px 0;
+  }
+
+  .main-wrapper {
+    padding: 0 16px;
+  }
+
+  .overline {
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+
+  .main-headline {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .subheadline {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .real-people-section .headline-block .subheadline {
+    margin-top: 20px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .origin-paragraph {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .origin-grid {
+    gap: 40px;
+  }
+
+  .origin-image {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .pillar-card {
+    padding: 24px 16px;
+  }
+
+  .pillar-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 16px;
+  }
+
+  .pillar-title {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .pillar-description {
+    font-size: 13px;
+  }
+
+  .people-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 60px;
+  }
+
+  .people-card {
+    padding: 20px 16px;
+  }
+
+  .people-title {
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  .people-description {
+    font-size: 13px;
+  }
+
+  .people-image {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .philosophy-headline,
+  .guarantee-headline {
+    font-size: 1.4rem;
+    margin-bottom: 32px;
+    line-height: 1.2;
+  }
+
+  .philosophy-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .philosophy-point {
+    padding: 20px 16px;
+  }
+
+  .philosophy-point h4 {
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  .philosophy-point p {
+    font-size: 13px;
+  }
+
+  .guarantee-content {
+    max-width: 100%;
+  }
+
+  .guarantee-badge {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 32px;
+  }
+
+  .badge-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .guarantee-list li {
+    font-size: 13px;
+    padding: 10px 0;
+  }
+
+  .guarantee-list li::before {
+    margin-right: 8px;
+  }
+
+  .final-cta {
+    padding: 80px 0;
+  }
+
+  .cta-buttons {
+    gap: 10px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cta-buttons .btn-primary,
+  .cta-buttons .btn-secondary {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  .placeholder-frame {
+    border-radius: 12px;
+    height: 200px;
+  }
+
+  .placeholder-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .placeholder-label {
+    font-size: 12px;
+  }
+}
