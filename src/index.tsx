@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
+import { Analytics } from '@vercel/analytics/react';
 import './index.css';
 
 interface ButtonProps {
@@ -296,6 +297,7 @@ const App: React.FC = () => {
       <TimelineSection />
       <InstructionsSection />
       <Footer />
+      <Analytics />
     </div>
   );
 };
