@@ -57,15 +57,6 @@ const Header: React.FC<{ currentPage: string; onNavigate: (page: string) => void
   );
 };
 
-const downloadFlux = () => {
-  const link = document.createElement('a');
-  link.href = '/flux.zip';
-  link.download = 'flux.zip';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
-
 const Hero: React.FC = () => {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -309,6 +300,23 @@ const App: React.FC = () => {
     }
   };
 
+  const scrollToSection = (id: string) => {
+    if (id === 'download' || id === 'instructions') {
+      setCurrentPage('home');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 0);
+    } else {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
   return (
     <div className="App">
       <Header currentPage={currentPage} onNavigate={handleNavigate} />
@@ -322,7 +330,7 @@ const App: React.FC = () => {
           <InstructionsSection />
         </>
       ) : (
-        <About onNavigate={handleNavigate} />
+        <About onNavigate={handleNavigate} scrollToSection={scrollToSection} />
       )}
       <Footer />
       <Analytics />

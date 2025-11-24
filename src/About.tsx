@@ -104,11 +104,15 @@ const Section: React.FC<{ id?: string; children: React.ReactNode; className?: st
   );
 };
 
-const About: React.FC<{ onNavigate?: (section: string) => void }> = ({ onNavigate }) => {
+const About: React.FC<{ onNavigate?: (section: string) => void; scrollToSection?: (id: string) => void }> = ({ onNavigate, scrollToSection: parentScrollToSection }) => {
   const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (parentScrollToSection) {
+      parentScrollToSection(id);
+    } else {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
     if (onNavigate) {
       onNavigate(id);
