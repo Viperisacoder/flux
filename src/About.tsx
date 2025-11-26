@@ -104,7 +104,7 @@ const Section: React.FC<{ id?: string; children: React.ReactNode; className?: st
   );
 };
 
-const About: React.FC<{ onNavigate?: (section: string) => void; scrollToSection?: (id: string) => void }> = ({ onNavigate, scrollToSection: parentScrollToSection }) => {
+const About: React.FC<{ onNavigate?: (section: string) => void; scrollToSection?: (id: string) => void; onDownload?: () => void }> = ({ onNavigate, scrollToSection: parentScrollToSection, onDownload }) => {
   const scrollToSection = (id: string) => {
     if (parentScrollToSection) {
       parentScrollToSection(id);
@@ -293,7 +293,7 @@ const About: React.FC<{ onNavigate?: (section: string) => void; scrollToSection?
         </AnimatedReveal>
 
         <div className="cta-buttons">
-          <Button label="Download for macOS" variant="primary" onClick={() => scrollToSection('download')} />
+          <Button label="Download for macOS" variant="primary" onClick={onDownload || (() => scrollToSection('download'))} />
           <Button
             label="View Instructions"
             variant="secondary"

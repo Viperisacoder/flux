@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/react';
 import './index.css';
 import About from './About';
 import DownloadSection from './DownloadSection';
+import { useDownloadStats } from './hooks/useDownloadStats';
 
 interface ButtonProps {
   label: string;
@@ -21,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({ label, onClick, variant = 'primary', cl
   );
 };
 
-const Header: React.FC<{ currentPage: string; onNavigate: (page: string) => void }> = ({ currentPage, onNavigate }) => {
+const Header: React.FC<{ currentPage: string; onNavigate: (page: string) => void; onDownload?: () => void }> = ({ currentPage, onNavigate, onDownload }) => {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -47,7 +48,7 @@ const Header: React.FC<{ currentPage: string; onNavigate: (page: string) => void
             <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('instructions'); }}>
               Instructions
             </a>
-            <button className="download-btn-small" onClick={() => scrollToSection('download')}>
+            <button className="download-btn-small" onClick={onDownload || (() => scrollToSection('download'))}>
               Download
             </button>
           </nav>
@@ -57,7 +58,13 @@ const Header: React.FC<{ currentPage: string; onNavigate: (page: string) => void
   );
 };
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  onDownload: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onDownload }) => {
+  const { stats, loading } = useDownloadStats();
+  
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -77,13 +84,18 @@ const Hero: React.FC = () => {
           <Button 
             label="Download for macOS" 
             variant="primary" 
-            onClick={() => scrollToSection('download')}
+            onClick={onDownload}
           />
           <Button 
             label="View Instructions" 
             variant="secondary" 
             onClick={() => scrollToSection('instructions')}
           />
+        </div>
+        <div className="hero-stats">
+          {!loading && stats.downloads > 0 && (
+            <p className="download-count">{stats.downloads}+ downloads</p>
+          )}
         </div>
         <p className="hero-caption">All performance data is processed locally on your Mac.</p>
         <img src="/flux.png" alt="Flux App UI" className="hero-image" />
@@ -226,7 +238,11 @@ const TimelineSection: React.FC = () => {
   );
 };
 
-const InstructionsSection: React.FC = () => {
+interface InstructionsSectionProps {
+  onDownload: () => void;
+}
+
+const InstructionsSection: React.FC<InstructionsSectionProps> = ({ onDownload }) => {
   const instructions = [
     "Download Flux and save it to your Downloads folder.",
     "Open Finder and navigate to Applications. Drag the Flux app into your Applications folder.",
@@ -265,12 +281,7 @@ const InstructionsSection: React.FC = () => {
           <Button 
             label="Download for macOS" 
             variant="primary" 
-            onClick={() => {
-              const el = document.getElementById('download');
-              if (el) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-            }}
+            onClick={onDownload}
           />
         </div>
       </div>
@@ -308,7 +319,7 @@ const App: React.FC = () => {
         if (el) {
           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 0);
+      }, 100);
     } else {
       const el = document.getElementById(id);
       if (el) {
@@ -317,20 +328,25 @@ const App: React.FC = () => {
     }
   };
 
+  const handleDownload = () => {
+    // Redirect to our tracking API endpoint which will increment counter and redirect to download
+    window.location.href = '/api/download';
+  };
+
   return (
     <div className="App">
-      <Header currentPage={currentPage} onNavigate={handleNavigate} />
+      <Header currentPage={currentPage} onNavigate={handleNavigate} onDownload={handleDownload} />
       {currentPage === 'home' ? (
         <>
-          <Hero />
+          <Hero onDownload={handleDownload} />
           <FeatureStrip />
           <ProductDetailsSection />
           <TimelineSection />
           <DownloadSection />
-          <InstructionsSection />
+          <InstructionsSection onDownload={handleDownload} />
         </>
       ) : (
-        <About onNavigate={handleNavigate} scrollToSection={scrollToSection} />
+        <About onNavigate={handleNavigate} scrollToSection={scrollToSection} onDownload={handleDownload} />
       )}
       <Footer />
       <Analytics />

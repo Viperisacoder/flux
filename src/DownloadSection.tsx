@@ -95,14 +95,8 @@ const AnimatedReveal: React.FC<{ children: React.ReactNode; className?: string }
 
 const DownloadSection: React.FC = () => {
   const handleDownload = () => {
-    // TODO: Replace with actual .zip URL
-    // Example: const zipUrl = 'https://your-domain.com/flux.zip';
-    const link = document.createElement('a');
-    link.href = '/flux.zip'; // Placeholder - update with real URL
-    link.download = 'flux.zip';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Redirect to our tracking API endpoint which will increment counter and redirect to download
+    window.location.href = '/api/download';
   };
 
   const freeFeatures = [
