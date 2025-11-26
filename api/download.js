@@ -13,13 +13,20 @@ export default async function handler(req, res) {
     // Initialize Redis client using environment variables from Vercel
     const redis = Redis.fromEnv();
     
-    // Increment the download counter
-    await redis.incr('flux_downloads');
+    // Increment the download counter with timeout protection
+    await Promise.race([
+      redis.incr('flux_downloads'),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Redis timeout')), 2000))
+    ]);
     
     console.log('Download counter incremented successfully');
   } catch (error) {
     // Log error but don't block the download
     console.error('Failed to increment download counter:', error);
+    console.error('Redis env check:', {
+      hasRedisUrl: !!process.env.UPSTASH_REDIS_REST_URL,
+      hasToken: !!process.env.UPSTASH_REDIS_REST_TOKEN
+    });
   }
 
   // Redirect to the actual download URL
