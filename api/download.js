@@ -1,7 +1,7 @@
 import { Redis } from '@upstash/redis';
 
-// TODO: Replace with your actual Flux download URL
-const FLUX_DOWNLOAD_URL = 'ACTUAL_DOWNLOAD_URL_HERE';
+// Download URL pointing to the flux.zip file in the public folder
+const FLUX_DOWNLOAD_URL = '/flux.zip';
 
 export default async function handler(req, res) {
   // Only allow GET requests
