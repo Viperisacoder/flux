@@ -22,11 +22,15 @@ const Button: React.FC<ButtonProps> = ({ label, onClick, variant = 'primary', cl
   );
 };
 
-const Header: React.FC<{ currentPage: string; onNavigate: (page: string) => void; onDownload?: () => void }> = ({ currentPage, onNavigate, onDownload }) => {
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+const Header: React.FC<{ currentPage: string; onNavigate: (page: string) => void; onDownload?: () => void; scrollToSection?: (id: string) => void }> = ({ currentPage, onNavigate, onDownload, scrollToSection }) => {
+  const localScrollToSection = (id: string) => {
+    if (scrollToSection) {
+      scrollToSection(id);
+    } else {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   };
 
@@ -42,13 +46,13 @@ const Header: React.FC<{ currentPage: string; onNavigate: (page: string) => void
             <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); onNavigate('about'); }}>
               About
             </a>
-            <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('download'); }}>
+            <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); localScrollToSection('download'); }}>
               Download
             </a>
-            <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('instructions'); }}>
+            <a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); localScrollToSection('instructions'); }}>
               Instructions
             </a>
-            <button className="download-btn-small" onClick={onDownload || (() => scrollToSection('download'))}>
+            <button className="download-btn-small" onClick={onDownload || (() => localScrollToSection('download'))}>
               Download
             </button>
           </nav>
@@ -335,7 +339,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <Header currentPage={currentPage} onNavigate={handleNavigate} onDownload={handleDownload} />
+      <Header currentPage={currentPage} onNavigate={handleNavigate} onDownload={handleDownload} scrollToSection={scrollToSection} />
       {currentPage === 'home' ? (
         <>
           <Hero onDownload={handleDownload} />
