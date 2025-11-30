@@ -491,6 +491,16 @@ body {
   width: 100%;
   height: 60px;
   transform: translateY(-50%);
+  animation: waveFlow 3s ease-in-out infinite;
+}
+
+@keyframes waveFlow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }
 
 .timeline-line {
