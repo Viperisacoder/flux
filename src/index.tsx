@@ -341,8 +341,7 @@ const App: React.FC = () => {
   };
 
   const handleDownload = () => {
-    // Redirect to our tracking API endpoint which will increment counter and redirect to download
-    window.location.href = '/api/download';
+    window.location.href = '/flux.zip';
   };
 
   return (

@@ -95,8 +95,7 @@ const AnimatedReveal: React.FC<{ children: React.ReactNode; className?: string }
 
 const DownloadSection: React.FC = () => {
   const handleDownload = () => {
-    // Redirect to our tracking API endpoint which will increment counter and redirect to download
-    window.location.href = '/api/download';
+    window.location.href = '/flux.zip';
   };
 
   const freeFeatures = [
