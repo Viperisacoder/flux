@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/react';
 import './index.css';
 import About from './About';
 import DownloadSection from './DownloadSection';
+import SuccessPage from './SuccessPage';
 import { useDownloadStats } from './hooks/useDownloadStats';
 
 interface ButtonProps {
@@ -307,11 +308,14 @@ const Footer: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<'home' | 'about'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'about' | 'success'>(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.has('session_id') ? 'success' : 'home';
+  });
 
   const handleNavigate = (page: string) => {
     if (page === 'home' || page === 'about') {
-      setCurrentPage(page);
+      setCurrentPage(page as 'home' | 'about');
       if (page === 'home') {
         setTimeout(() => {
           const homeEl = document.getElementById('home');
@@ -341,12 +345,14 @@ const App: React.FC = () => {
   };
 
   const handleDownload = () => {
-    window.location.href = '/flux.zip';
+    scrollToSection('download');
   };
 
   return (
     <div className="App">
-      <Header currentPage={currentPage} onNavigate={handleNavigate} onDownload={handleDownload} scrollToSection={scrollToSection} />
+      {currentPage !== 'success' && (
+        <Header currentPage={currentPage} onNavigate={handleNavigate} onDownload={handleDownload} scrollToSection={scrollToSection} />
+      )}
       {currentPage === 'home' ? (
         <>
           <Hero onDownload={handleDownload} />
@@ -355,11 +361,16 @@ const App: React.FC = () => {
           <TimelineSection />
           <DownloadSection />
           <InstructionsSection onDownload={handleDownload} />
+          <Footer />
+        </>
+      ) : currentPage === 'about' ? (
+        <>
+          <About onNavigate={handleNavigate} scrollToSection={scrollToSection} onDownload={handleDownload} />
+          <Footer />
         </>
       ) : (
-        <About onNavigate={handleNavigate} scrollToSection={scrollToSection} onDownload={handleDownload} />
+        <SuccessPage />
       )}
-      <Footer />
       <Analytics />
     </div>
   );

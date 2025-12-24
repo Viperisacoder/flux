@@ -94,25 +94,45 @@ const AnimatedReveal: React.FC<{ children: React.ReactNode; className?: string }
 };
 
 const DownloadSection: React.FC = () => {
-  const handleDownload = () => {
-    window.location.href = '/flux.zip';
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState('');
+
+  const handleCheckout = async () => {
+    setLoading(true);
+    setError('');
+
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      const response = await fetch(`${apiUrl}/api/stripe/create-checkout-session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Failed to create checkout session');
+        setLoading(false);
+        return;
+      }
+
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
+      setLoading(false);
+    }
   };
 
-  const freeFeatures = [
-    'CPU, Disk, and Memory rings',
-    'Performance Timeline (10 min, 1 hr, 24 hrs, 7 days)',
-    'Smart alerts for unusual spikes',
-    'External display brightness control',
-    'Local-only processing — no data leaves your Mac',
-    'Menu bar integration',
-  ];
-
-  const proFeatures = [
-    'Advanced alert customization',
-    'Extended timeline history',
-    'Theme customization',
-    'Priority support',
-    'Future features',
+  const features = [
+    'Live Menu Bar Performance',
+    'Weekly Performance Updates',
+    'Performance notifications',
+    'Brightness Slider',
+    'CPU, MEM, RAM rings',
+    'Ram and PC cleaner',
   ];
 
   return (
@@ -126,29 +146,40 @@ const DownloadSection: React.FC = () => {
           </p>
         </AnimatedReveal>
 
-        <div className="pricing-grid">
+        <div className="pricing-grid single-plan">
           <AnimatedReveal className="pricing-card-wrapper">
-            <PricingCard
-              tier="free"
-              title="Flux for macOS"
-              description="Everything you need to understand your Mac at a glance."
-              features={freeFeatures}
-              badge="Current version"
-              buttonLabel="Download for macOS"
-              onDownload={handleDownload}
-            />
-          </AnimatedReveal>
+            <div className="pricing-card pricing-card-single">
+              <div className="card-header">
+                <div className="tier-label">$2</div>
+                <div className="tier-badge">One-time</div>
+              </div>
 
-          <AnimatedReveal className="pricing-card-wrapper">
-            <PricingCard
-              tier="pro"
-              title="Flux Pro"
-              description="Advanced monitoring and customization for power users."
-              features={proFeatures}
-              badge="Coming soon"
-              buttonLabel="Coming soon"
-              buttonDisabled={true}
-            />
+              <h3 className="card-title">Flux for macOS</h3>
+              <p className="card-description">Everything you need to understand your Mac at a glance.</p>
+
+              <ul className="features-list">
+                {features.map((feature, index) => (
+                  <li key={index} className="feature-item">
+                    <span className="feature-check">✓</span>
+                    <span className="feature-text">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {error && <div className="error-message">{error}</div>}
+
+              <button
+                className="download-button"
+                onClick={handleCheckout}
+                disabled={loading}
+              >
+                {loading ? 'Processing...' : 'Buy & Download'}
+              </button>
+
+              <p className="system-requirements">
+                Secure payment powered by Stripe. Download up to 3 times within 7 days.
+              </p>
+            </div>
           </AnimatedReveal>
         </div>
 

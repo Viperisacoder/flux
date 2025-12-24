@@ -425,3 +425,44 @@
     line-height: 1.6;
   }
 }
+
+/* Single Plan Styling */
+.pricing-grid.single-plan {
+  max-width: 500px;
+}
+
+.pricing-card-single {
+  min-height: auto;
+}
+
+.pricing-card-single .card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.pricing-card-single .tier-label {
+  font-size: 32px;
+  font-weight: 700;
+  color: #007AFF;
+}
+
+.pricing-card-single .tier-badge {
+  background: rgba(0, 122, 255, 0.1);
+  color: #007AFF;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.error-message {
+  background: rgba(255, 59, 48, 0.1);
+  border: 1px solid rgba(255, 59, 48, 0.3);
+  color: #FF3B30;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
