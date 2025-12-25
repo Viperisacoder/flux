@@ -19,7 +19,12 @@ const SuccessPage: React.FC = () => {
 
     const fetchDownload = async () => {
       try {
-        const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+        // On Vercel, use the same domain as the frontend
+        // On localhost, use the backend server
+        const apiUrl = process.env.REACT_APP_API_URL || 
+                       (typeof window !== 'undefined' && window.location.hostname === 'localhost' 
+                         ? 'http://localhost:5001' 
+                         : window.location.origin);
         const response = await fetch(`${apiUrl}/api/download?session_id=${sessionId}`);
         const data = await response.json();
 
