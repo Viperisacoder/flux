@@ -4,8 +4,6 @@ import { Analytics } from '@vercel/analytics/react';
 import './index.css';
 import About from './About';
 import DownloadSection from './DownloadSection';
-import SuccessPage from './SuccessPage';
-import CancelPage from './CancelPage';
 import { useDownloadStats } from './hooks/useDownloadStats';
 
 interface ButtonProps {
@@ -309,12 +307,7 @@ const Footer: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<'home' | 'about' | 'success' | 'cancel'>(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.has('session_id')) return 'success';
-    if (window.location.pathname === '/cancel') return 'cancel';
-    return 'home';
-  });
+  const [currentPage, setCurrentPage] = useState<'home' | 'about'>('home');
 
   const handleNavigate = (page: string) => {
     if (page === 'home' || page === 'about') {
@@ -353,9 +346,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      {currentPage !== 'success' && currentPage !== 'cancel' && (
-        <Header currentPage={currentPage} onNavigate={handleNavigate} onDownload={handleDownload} scrollToSection={scrollToSection} />
-      )}
+      <Header currentPage={currentPage} onNavigate={handleNavigate} onDownload={handleDownload} scrollToSection={scrollToSection} />
       {currentPage === 'home' ? (
         <>
           <Hero onDownload={handleDownload} />
@@ -366,15 +357,11 @@ const App: React.FC = () => {
           <InstructionsSection onDownload={handleDownload} />
           <Footer />
         </>
-      ) : currentPage === 'about' ? (
+      ) : (
         <>
           <About onNavigate={handleNavigate} scrollToSection={scrollToSection} onDownload={handleDownload} />
           <Footer />
         </>
-      ) : currentPage === 'success' ? (
-        <SuccessPage />
-      ) : (
-        <CancelPage />
       )}
       <Analytics />
     </div>
