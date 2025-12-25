@@ -1,7 +1,0 @@
-{
-  "buildCommand": "npm run build",
-  "outputDirectory": "build",
-  "env": {
-    "SITE_URL": "@site_url"
-  }
-}
