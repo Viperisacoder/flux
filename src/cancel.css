@@ -1,0 +1,96 @@
+.cancel-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #050509 0%, #0f0f1a 100%);
+  padding: 20px;
+}
+
+.cancel-container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.cancel-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 60px 40px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.cancel-icon {
+  font-size: 64px;
+  margin-bottom: 24px;
+  display: inline-block;
+  color: #ff6b6b;
+}
+
+.cancel-card h2 {
+  font-size: 28px;
+  color: #f5f5f7;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+
+.cancel-card p {
+  color: #b5b8c1;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cancel-info {
+  margin: 32px 0;
+  padding: 20px;
+  background: rgba(255, 107, 107, 0.05);
+  border-radius: 12px;
+  border-left: 3px solid #ff6b6b;
+}
+
+.cancel-info p {
+  margin: 0;
+  color: #b5b8c1;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 12px 32px;
+  background: linear-gradient(135deg, #3b68f0 0%, #2d52c4 100%);
+  color: #f5f5f7;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.back-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59, 104, 240, 0.3);
+}
+
+@media (max-width: 600px) {
+  .cancel-card {
+    padding: 40px 24px;
+  }
+
+  .cancel-icon {
+    font-size: 48px;
+  }
+
+  .cancel-card h2 {
+    font-size: 22px;
+  }
+
+  .cancel-card p {
+    font-size: 14px;
+  }
+
+  .back-link {
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+}

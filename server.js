@@ -39,7 +39,12 @@ app.use(express.json());
 // Create checkout session
 app.post('/api/stripe/create-checkout-session', async (req, res) => {
   try {
-    const siteUrl = process.env.SITE_URL || 'http://localhost:5002';
+    // Use NEXT_PUBLIC_SITE_URL for production (Vercel)
+    // Fallback to SITE_URL for backward compatibility
+    // Fallback to localhost for local development
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 
+                    process.env.SITE_URL || 
+                    'http://localhost:5002';
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -57,7 +62,7 @@ app.post('/api/stripe/create-checkout-session', async (req, res) => {
       ],
       mode: 'payment',
       success_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteUrl}`,
+      cancel_url: `${siteUrl}/cancel`,
     });
 
     return res.json({ url: session.url });

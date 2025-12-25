@@ -5,6 +5,7 @@ import './index.css';
 import About from './About';
 import DownloadSection from './DownloadSection';
 import SuccessPage from './SuccessPage';
+import CancelPage from './CancelPage';
 import { useDownloadStats } from './hooks/useDownloadStats';
 
 interface ButtonProps {
@@ -308,9 +309,11 @@ const Footer: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<'home' | 'about' | 'success'>(() => {
+  const [currentPage, setCurrentPage] = useState<'home' | 'about' | 'success' | 'cancel'>(() => {
     const params = new URLSearchParams(window.location.search);
-    return params.has('session_id') ? 'success' : 'home';
+    if (params.has('session_id')) return 'success';
+    if (window.location.pathname === '/cancel') return 'cancel';
+    return 'home';
   });
 
   const handleNavigate = (page: string) => {
@@ -350,7 +353,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      {currentPage !== 'success' && (
+      {currentPage !== 'success' && currentPage !== 'cancel' && (
         <Header currentPage={currentPage} onNavigate={handleNavigate} onDownload={handleDownload} scrollToSection={scrollToSection} />
       )}
       {currentPage === 'home' ? (
@@ -368,8 +371,10 @@ const App: React.FC = () => {
           <About onNavigate={handleNavigate} scrollToSection={scrollToSection} onDownload={handleDownload} />
           <Footer />
         </>
-      ) : (
+      ) : currentPage === 'success' ? (
         <SuccessPage />
+      ) : (
+        <CancelPage />
       )}
       <Analytics />
     </div>
