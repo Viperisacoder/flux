@@ -1,8 +1,6 @@
-import Stripe from 'stripe';
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -45,4 +43,4 @@ export default async function handler(req, res) {
     console.error('Stripe error:', error.message);
     return res.status(500).json({ error: error.message || 'Failed to create checkout session' });
   }
-}
+};
