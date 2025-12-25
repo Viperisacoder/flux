@@ -102,7 +102,7 @@ const Hero: React.FC<HeroProps> = ({ onDownload }) => {
           )}
         </div>
         <p className="hero-caption">All performance data is processed locally on your Mac.</p>
-        <img src="/flux.png" alt="Flux App UI" className="hero-image" />
+        <img src="/flux.png.png" alt="Flux App UI" className="hero-image" />
       </div>
     </section>
   );
