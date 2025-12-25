@@ -1,34 +1,49 @@
-import { Redis } from '@upstash/redis';
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-// Download URL pointing to the flux.zip file in the public folder
-const FLUX_DOWNLOAD_URL = '/flux.zip';
+module.exports = async (req, res) => {
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-export default async function handler(req, res) {
-  // Only allow GET requests
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    // Initialize Redis client using environment variables from Vercel
-    const redis = Redis.fromEnv();
-    
-    // Increment the download counter with timeout protection
-    await Promise.race([
-      redis.incr('flux_downloads'),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Redis timeout')), 2000))
-    ]);
-    
-    console.log('Download counter incremented successfully');
-  } catch (error) {
-    // Log error but don't block the download
-    console.error('Failed to increment download counter:', error);
-    console.error('Redis env check:', {
-      hasRedisUrl: !!process.env.UPSTASH_REDIS_REST_URL,
-      hasToken: !!process.env.UPSTASH_REDIS_REST_TOKEN
-    });
-  }
+    const sessionId = req.query.session_id;
 
-  // Redirect to the actual download URL
-  res.redirect(302, FLUX_DOWNLOAD_URL);
-}
+    if (!sessionId) {
+      return res.status(400).json({ error: 'Missing session_id' });
+    }
+
+    // Fetch session from Stripe to verify payment
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+    if (!session) {
+      return res.status(404).json({ error: 'Session not found' });
+    }
+
+    if (session.payment_status !== 'paid') {
+      return res.status(403).json({ error: 'Payment not completed' });
+    }
+
+    // Return download URL
+    const downloadUrl = process.env.DOWNLOAD_FILE_URL;
+    if (!downloadUrl) {
+      return res.status(503).json({ error: 'Download service not configured' });
+    }
+
+    console.log(`✓ Download authorized for session: ${sessionId}`);
+    return res.json({ downloadUrl });
+  } catch (error) {
+    console.error('Download error:', error.message);
+    return res.status(500).json({ error: error.message || 'Failed to process download request' });
+  }
+};
