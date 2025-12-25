@@ -39,12 +39,9 @@ app.use(express.json());
 // Create checkout session
 app.post('/api/stripe/create-checkout-session', async (req, res) => {
   try {
-    // Use NEXT_PUBLIC_SITE_URL for production (Vercel)
-    // Fallback to SITE_URL for backward compatibility
+    // Use SITE_URL for backend (set on Vercel as environment variable)
     // Fallback to localhost for local development
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 
-                    process.env.SITE_URL || 
-                    'http://localhost:5002';
+    const siteUrl = process.env.SITE_URL || 'http://localhost:5002';
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
