@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Analytics } from '@vercel/analytics/react';
 import './index.css';
 import About from './About';
+import Success from './Success';
 import DownloadSection from './DownloadSection';
 import { useDownloadStats } from './hooks/useDownloadStats';
 
@@ -307,11 +308,11 @@ const Footer: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<'home' | 'about'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'about' | 'success'>('home');
 
   const handleNavigate = (page: string) => {
-    if (page === 'home' || page === 'about') {
-      setCurrentPage(page as 'home' | 'about');
+    if (page === 'home' || page === 'about' || page === 'success') {
+      setCurrentPage(page as 'home' | 'about' | 'success');
       if (page === 'home') {
         setTimeout(() => {
           const homeEl = document.getElementById('home');
@@ -341,26 +342,39 @@ const App: React.FC = () => {
   };
 
   const handleDownload = () => {
-    scrollToSection('download');
+    const link = document.createElement('a');
+    link.href = '/flux.zip';
+    link.download = 'Flux.zip';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    setTimeout(() => {
+      handleNavigate('success');
+    }, 500);
   };
 
   return (
     <div className="App">
-      <Header currentPage={currentPage} onNavigate={handleNavigate} onDownload={handleDownload} scrollToSection={scrollToSection} />
+      {currentPage !== 'success' && <Header currentPage={currentPage} onNavigate={handleNavigate} onDownload={handleDownload} scrollToSection={scrollToSection} />}
       {currentPage === 'home' ? (
         <>
           <Hero onDownload={handleDownload} />
           <FeatureStrip />
           <ProductDetailsSection />
           <TimelineSection />
-          <DownloadSection />
+          <DownloadSection onDownload={handleDownload} />
           <InstructionsSection onDownload={handleDownload} />
+          <Footer />
+        </>
+      ) : currentPage === 'about' ? (
+        <>
+          <About onNavigate={handleNavigate} scrollToSection={scrollToSection} onDownload={handleDownload} />
           <Footer />
         </>
       ) : (
         <>
-          <About onNavigate={handleNavigate} scrollToSection={scrollToSection} onDownload={handleDownload} />
-          <Footer />
+          <Success onNavigate={handleNavigate} />
         </>
       )}
       <Analytics />

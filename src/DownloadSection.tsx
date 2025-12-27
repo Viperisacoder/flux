@@ -36,14 +36,22 @@ const AnimatedReveal: React.FC<{ children: React.ReactNode; className?: string }
   );
 };
 
-const DownloadSection: React.FC = () => {
+interface DownloadSectionProps {
+  onDownload?: () => void;
+}
+
+const DownloadSection: React.FC<DownloadSectionProps> = ({ onDownload }) => {
   const handleDownload = () => {
-    const link = document.createElement('a');
-    link.href = '/flux.zip';
-    link.download = 'Flux.zip';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    if (onDownload) {
+      onDownload();
+    } else {
+      const link = document.createElement('a');
+      link.href = '/flux.zip';
+      link.download = 'Flux.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
   const features = [
