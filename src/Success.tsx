@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './success.css';
 
 interface SuccessProps {
@@ -6,6 +6,11 @@ interface SuccessProps {
 }
 
 const Success: React.FC<SuccessProps> = ({ onNavigate }) => {
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.pathname !== '/successful') {
+      window.history.replaceState({ page: 'successful' }, 'Success', '/successful');
+    }
+  }, []);
   const instructions = [
     "Download Flux and save it to your Downloads folder.",
     "Open Finder and navigate to Applications. Drag the Flux app into your Applications folder.",

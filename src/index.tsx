@@ -308,11 +308,12 @@ const Footer: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<'home' | 'about' | 'success'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'about' | 'successful'>('home');
+  const [hasDownloaded, setHasDownloaded] = useState(false);
 
   const handleNavigate = (page: string) => {
-    if (page === 'home' || page === 'about' || page === 'success') {
-      setCurrentPage(page as 'home' | 'about' | 'success');
+    if (page === 'home' || page === 'about' || (page === 'successful' && hasDownloaded)) {
+      setCurrentPage(page as 'home' | 'about' | 'successful');
       if (page === 'home') {
         setTimeout(() => {
           const homeEl = document.getElementById('home');
@@ -349,14 +350,17 @@ const App: React.FC = () => {
     link.click();
     document.body.removeChild(link);
     
+    setHasDownloaded(true);
+    
     setTimeout(() => {
-      handleNavigate('success');
+      setCurrentPage('successful');
+      window.history.pushState({ page: 'successful' }, 'Success', '/successful');
     }, 500);
   };
 
   return (
     <div className="App">
-      {currentPage !== 'success' && <Header currentPage={currentPage} onNavigate={handleNavigate} onDownload={handleDownload} scrollToSection={scrollToSection} />}
+      {currentPage !== 'successful' && <Header currentPage={currentPage} onNavigate={handleNavigate} onDownload={handleDownload} scrollToSection={scrollToSection} />}
       {currentPage === 'home' ? (
         <>
           <Hero onDownload={handleDownload} />
